@@ -45,8 +45,24 @@ $(function () {
             url:'/employee/employeeLogin',
             data: $form.serialize(),
             success: function(info){
-                console.log(info)
+                if(info.success){
+                    location.href = 'index.html';
+                }
+                if(info.error === 1000){
+                    $form.data("bootstrapValidator").updateStatus("username", "INVALID", "callback");
+                }
+                if(info.error === 1001){
+                    $form.data("bootstrapValidator").updateStatus("password", "INVALID", "callback");
+                }
             }
         });
+    });
+
+    //重置样式
+    $("[type='reset']").on("click", function () {
+
+        //重置样式
+        $form.data("bootstrapValidator").resetForm();
+
     });
 });
